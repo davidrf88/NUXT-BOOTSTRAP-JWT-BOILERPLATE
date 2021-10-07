@@ -1,5 +1,18 @@
 # NUXT-BOOTSTRAP-JWT-BOILERPLATE
 
+## Index
+![alt text](https://raw.githubusercontent.com/davidrf88/Documentation/main/NUXT-BOOTSTRAP-JWT-BOILERPLATE/images/page-index.PNG)
+
+## Register
+
+![alt text](https://raw.githubusercontent.com/davidrf88/Documentation/main/NUXT-BOOTSTRAP-JWT-BOILERPLATE/images/page-register.PNG)
+
+## Validations
+
+![alt text](https://raw.githubusercontent.com/davidrf88/Documentation/main/NUXT-BOOTSTRAP-JWT-BOILERPLATE/images/page-register-errors.PNG)
+
+
+
 ## Build Setup
 
 ```bash
