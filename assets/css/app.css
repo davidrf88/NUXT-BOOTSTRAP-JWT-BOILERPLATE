@@ -1,0 +1,13 @@
+body{
+    background-color: #22272e;
+    color: azure;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a{
+    color: #c4e0ff;
+}
+a:hover
+{
+    color: #99c6f8;
+}
