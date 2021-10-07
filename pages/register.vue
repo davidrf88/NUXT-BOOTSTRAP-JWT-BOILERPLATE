@@ -1,8 +1,9 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-sm-8 mt-4" style="max-width: 500px">
-      <h1>Register</h1>
-      <form v-on:submit.stop.prevent="Register()">
+      
+      <form v-if="!completed" v-on:submit.stop.prevent="Register()">
+          <h1>Register</h1>
         <div class="form-group">
           <label for="email">Email address</label>
           <input
@@ -46,13 +47,18 @@
           </div>
         </div>
         <div v-if="errorMessage"  class="form-text text-info">
-            invalid form
+            {{errorMessage}}
         </div>
         <div class="text-center">
-          <button type="submit" class="btn btn-primary mt-4">Submit</button>
+          <button v-if="!inProgress" type="submit" class="btn btn-primary mt-4">Submit</button>
+          <button v-if="inProgress" type="submit" class="btn btn-primary disabled mt-4">processing...</button>
         </div>
 
       </form>
+      <div v-if="completed" class="text-center" > 
+          <h3 class="text-success">Registration completed! </h3>
+          <NuxtLink class="nav-item btn btn-primary mt-4" to="/login">Access</NuxtLink>
+          </div>
     </div>
 
 
@@ -65,10 +71,12 @@ import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
-      email: "",
-      password: "",
-      confirmPassword: "",
+      email: "davidrf88@gmail.com",
+      password: "pass1234",
+      confirmPassword: "pass1234",
       errorMessage:null,
+      inProgress: false,
+      completed : false
     };
   },
 
@@ -98,15 +106,53 @@ export default {
       };
     },
 
-    Register() {
+    async Register() {
          this.errorMessage = null;
-        if(this.$v.$invalid){ 
+         
+         this.inProgress = true;
+        console.log('inporgress:', this.inProgress );
+        try {
+            if(this.$v.$invalid){ 
             this.$v.$touch()
             this.errorMessage = "invalid form";
             return
         }
 
-      console.log(this.email, this.password);
+              await this.$store
+          .dispatch("auth/register", {
+            email: this.email,
+            password: this.password,
+          }).then((response) => {
+                    console.log('starting page then', response);
+                if(!response.success)
+                {
+                    this.errorMessage = response.message;
+                }
+                else
+                {
+                    this.completed = true
+                }
+
+
+          } )
+
+        }
+        catch(err)
+        {
+            this.errorMessage = 'Service Unavailable -' + err.message;
+        }
+        finally{
+            
+            this.inProgress = false;
+            console.log('inporgress:', this.inProgress );
+        }
+
+
+        
+         
+      
+
+
     },
   },
 };
