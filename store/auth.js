@@ -7,7 +7,7 @@ export const state = () => ({
   export const actions = {
 
     async register(context, { email, password }) {
-        console.log('Register', process.env.APIEndpoint);
+       
       try {
         const body = JSON.stringify({ email: email, password: password })
         //Send request
@@ -25,7 +25,7 @@ export const state = () => ({
 
       }
       catch (error) {
-        console.log('error reached');
+        
         return {success: false, message: 'Service unavailable - ' + error.message};
       }
   

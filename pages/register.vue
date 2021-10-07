@@ -110,7 +110,7 @@ export default {
          this.errorMessage = null;
          
          this.inProgress = true;
-        console.log('inporgress:', this.inProgress );
+       
         try {
             if(this.$v.$invalid){ 
             this.$v.$touch()
@@ -123,7 +123,7 @@ export default {
             email: this.email,
             password: this.password,
           }).then((response) => {
-                    console.log('starting page then', response);
+                    
                 if(!response.success)
                 {
                     this.errorMessage = response.message;
@@ -144,7 +144,7 @@ export default {
         finally{
             
             this.inProgress = false;
-            console.log('inporgress:', this.inProgress );
+           
         }
 
 
