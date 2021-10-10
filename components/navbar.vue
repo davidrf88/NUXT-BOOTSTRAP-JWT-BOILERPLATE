@@ -42,8 +42,11 @@ export default {
 
 
   methods: {
-    handleLogout(e) {
-      
+    async handleLogout(e) {
+await this.$store
+          .dispatch("auth/logout").then((resp) =>{
+          this.$router.push("/");
+          } )
     },
   },
 }; 

@@ -10,18 +10,18 @@ export const getters = {
   getUser: state => {
     return state.user;
   },
-
-
-
 }
 
 export const mutations = {
   setUser(state, { jwt }) {
-     
     var decodedtkn = jwtDecode(jwt);
     state.user = decodedtkn;
     state.user.jwt = jwt;
   },
+  logout(state)
+  {
+    state.user = null;
+  }
 }
 
 
@@ -50,10 +50,6 @@ export const actions = {
 
       return { success: false, message: 'Service unavailable - ' + error.message };
     }
-
-
-
-
 
 
   },
@@ -91,5 +87,11 @@ export const actions = {
 
 
   },
+  
+  async logout(context)
+  {
+     context.commit("logout");
+  }
+  
 
 }
