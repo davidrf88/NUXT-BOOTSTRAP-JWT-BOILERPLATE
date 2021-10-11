@@ -56,7 +56,7 @@
 
       </form>
       <div v-if="completed" class="text-center" > 
-          <h3 class="text-success">Registration completed! </h3>
+          <h3>Registration completed! </h3>
           <NuxtLink class="nav-item btn btn-primary mt-4" to="/login">Access</NuxtLink>
           </div>
     </div>

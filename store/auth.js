@@ -1,6 +1,7 @@
 import jwtDecode from 'jwt-decode'
 export const state = () => ({
   user: null,
+  test:'dsfdsf',
 })
 
 export const getters = {

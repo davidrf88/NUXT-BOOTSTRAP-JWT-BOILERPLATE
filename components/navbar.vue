@@ -23,7 +23,7 @@
 
           <!-- Using 'button-content' slot -->
           <template #button-content>
-            <em>User</em>
+            <em>{{user.email}}</em>
           </template>
           <NuxtLink role="menuitem" class="dropdown-item" style="color:#212529;" to="/user/profile">Profile </NuxtLink>
           <b-dropdown-item @click.prevent="handleLogout" href="#">Sign Out</b-dropdown-item>
@@ -40,6 +40,10 @@
 <script>
 export default {
 
+computed:{
+
+      user: function(){ return this.$store.state.auth.user}
+},
 
   methods: {
     async handleLogout(e) {
