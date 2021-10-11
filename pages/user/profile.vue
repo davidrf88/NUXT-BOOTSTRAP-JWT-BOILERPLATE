@@ -1,48 +1,40 @@
 <template>
+<div>
+<breadcrumb :items="breadcrumbItems" />
 <div class="container-fluid"> 
 
-  <div class="row justify-content-center">
+  <div class="row">
     <div class="col-sm-8 mt-4" style="max-width: 500px">
       
-      <form v-if="!completed" v-on:submit.stop.prevent="Register()">
-          <h1>Register</h1>
+      <form  v-on:submit.stop.prevent="ChangePassword()">
+          <h1>{{user.email}}</h1>
+        
+         <h4 class="mt-5">Change password</h4>
+        <div class="Update-section">
+         
         <div class="form-group">
-          <label for="email">Email address</label>
-          <input
-            v-model="$v.email.$model"
-            :class="status($v.email)"
-            id="email"
-            aria-describedby="emailHelp"
-            placeholder="Enter email"
-          />
-          <div class="inputValidationErrors">
-              <div class="form-text" v-if=" $v.email.$dirty && !$v.email.email">invalid email</div>
-          </div>
-          
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password">new password</label>
           <input
             v-model="$v.password.$model"
             :class="status($v.password)"
             type="password"
             class="form-control"
             id="password"
-            placeholder="Password"
+            placeholder="new password"
           />
           <div class="inputValidationErrors">
               <div class="form-text" v-if=" $v.password.$dirty && !$v.password.minLength">password must be at least {{$v.password.$params.minLength.min}} characters long</div>
           </div>
         </div>
         <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>
+          <label for="confirmPassword">Confirm new Password</label>
           <input
             v-model="$v.confirmPassword.$model"
             :class="status($v.confirmPassword)"
             type="password"
             class="form-control"
             id="confirmPassword"
-            placeholder="Confirm Password"
+            placeholder="Confirm new password"
           />
           <div class="inputValidationErrors">
               <div class="form-text" v-if=" $v.confirmPassword.$dirty && !$v.confirmPassword.sameAsPassword">confirm password must be same as password</div>
@@ -51,20 +43,21 @@
         <div v-if="errorMessage"  class="form-text text-info">
             {{errorMessage}}
         </div>
+         <div v-if="completed"  class=" text-center  form-text text-info" > 
+          <span>password updated!</span>
+          </div>
         <div class="text-center">
-          <button v-if="!inProgress" type="submit" class="btn btn-primary mt-4">Submit</button>
+          <button v-if="!inProgress" type="submit" class="btn btn-primary mt-4">update password</button>
           <button v-if="inProgress" type="submit" class="btn btn-primary disabled mt-4">processing...</button>
         </div>
-
+</div>
       </form>
-      <div v-if="completed" class="text-center" > 
-          <h3>Registration completed! </h3>
-          <NuxtLink class="nav-item btn btn-primary mt-4" to="/login">Access</NuxtLink>
-          </div>
+     
     </div>
 
 
    
+  </div>
   </div>
   </div>
 </template>
@@ -74,21 +67,24 @@ import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
+       breadcrumbItems: [
+        { text: "home", to: "/" },
+        { text: "profile", active: true },
+      ],
       email: "davidrf88@gmail.com",
       password: "pass1234",
       confirmPassword: "pass1234",
       errorMessage:null,
       inProgress: false,
-      completed : false
+      completed : false,
+
     };
   },
+ computed:{
+      user: function(){ return this.$store.state.auth.user}
+},
 
   validations: {
-    email: {
-      required,
-      email,
-      minLength: minLength(3),
-    },
     password: {
       required,
       minLength: minLength(5),
@@ -109,7 +105,7 @@ export default {
       };
     },
 
-    async Register() {
+    async ChangePassword() {
          this.errorMessage = null;
          
          this.inProgress = true;
@@ -122,7 +118,7 @@ export default {
         }
 
               await this.$store
-          .dispatch("auth/register", {
+          .dispatch("auth/changePassword", {
             email: this.email,
             password: this.password,
           }).then((response) => {
@@ -134,6 +130,9 @@ export default {
                 else
                 {
                     this.completed = true
+                    this.password = '';
+                    this.confirmPassword = ''
+                    this.$v.$reset()
                 }
 
 
@@ -175,6 +174,12 @@ export default {
       color: #17a2b8;
   }
 
+.Update-section
+{
+  border-top: 1px solid #fff;
+  padding-top:.5rem;
+  
+}
 
 
 </style>

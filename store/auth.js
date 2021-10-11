@@ -55,6 +55,34 @@ export const actions = {
 
   },
 
+  async changePassword(context, { password }) {
+    
+    try {
+      let user = context.getters.getUser;
+
+      let token = 'bearer '+ user.jwt;
+      const body = JSON.stringify({ password: password })
+      //Send request
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json','authorization': token},
+        body: body
+        //
+      };
+      const response = await fetch(process.env.APIEndpoint + 'auth/changePassword', requestOptions);
+
+      return response.text().then(text => {
+        return text && JSON.parse(text);
+      });
+    }
+    catch (error) {
+
+      return { success: false, message: 'Service unavailable - ' + error.message };
+    }
+
+
+  },
+
   async login(context, { email, password }) {
 
     try {

@@ -1,4 +1,5 @@
 <template>
+<div class="container-fluid">
   <b-row  >
     <b-col class="text-center mt-4">
       <h1 class="mb-3">Boilerplate</h1>
@@ -7,6 +8,7 @@
       <NuxtLink class="nav-item btn btn-primary" to="/login">Access</NuxtLink>
     </b-col>
   </b-row>
+</div>
 </template>
 
 <script>

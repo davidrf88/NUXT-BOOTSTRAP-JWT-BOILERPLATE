@@ -1,4 +1,6 @@
 <template>
+<div class="container-fluid">
+
   <div class="row justify-content-center">
     <div class="col-sm-8 mt-4" style="max-width: 500px">
       <h1>Access</h1>
@@ -47,6 +49,7 @@
         </div>
       </form>
     </div>
+  </div>
   </div>
 </template>
 
