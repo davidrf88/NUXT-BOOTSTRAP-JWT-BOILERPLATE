@@ -1,4 +1,6 @@
 <template>
+<div>
+<breadcrumb :items="breadcrumbItems" />
 <div class="container-fluid">
 
   <div class="row justify-content-center">
@@ -44,11 +46,12 @@
           {{errorMessage}}
         </div>
         <div class="text-center">
-          <button v-if="!inProgress" type="submit" class="btn btn-primary mt-4">Submit</button>
+          <button v-if="!inProgress" type="submit" class="btn btn-primary mt-4">Login</button>
           <button v-if="inProgress" type="submit" class="btn btn-primary disabled mt-4">processing...</button>
         </div>
       </form>
     </div>
+  </div>
   </div>
   </div>
 </template>
@@ -58,8 +61,12 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
+       breadcrumbItems: [
+        { text: "home", to: "/" },
+        { text: "login", active: true },
+      ],
       email: "davidrf88@gmail.com",
-      password: "password",
+      password: "pass123",
       errorMessage: null,
       inProgress: false,
     };
@@ -104,8 +111,20 @@ export default {
           })
           .then((response) => {
             if (response.success && this.$store.getters["auth/IsAuthenticated"]) {
-              //redirect to user profile
-              this.$router.push("/");
+              
+              
+              if(this.$store.getters["auth/IsAdmin"])
+              {
+                this.$router.push("/admin/home");
+              }
+              else
+              {
+                
+              //redirect to user home
+              this.$router.push("/user/home");
+              }
+
+
               
             } else {
               //display error

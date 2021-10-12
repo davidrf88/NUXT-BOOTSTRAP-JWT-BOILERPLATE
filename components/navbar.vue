@@ -25,6 +25,7 @@
           <template #button-content>
             <em>{{user.email}}</em>
           </template>
+          <NuxtLink v-if="isAdmin" role="menuitem" class="dropdown-item" style="color:#212529;" to="/admin/home">Admin </NuxtLink>
           <NuxtLink role="menuitem" class="dropdown-item" style="color:#212529;" to="/user/profile">Profile </NuxtLink>
           <b-dropdown-item @click.prevent="handleLogout" href="#">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
@@ -42,7 +43,8 @@ export default {
 
 computed:{
 
-      user: function(){ return this.$store.state.auth.user}
+      user: function(){ return this.$store.state.auth.user},
+      isAdmin: function() { return this.$store.getters["auth/IsAdmin"];   }
 },
 
   methods: {

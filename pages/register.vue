@@ -1,6 +1,7 @@
 <template>
+<div>
+  <breadcrumb :items="breadcrumbItems" />
 <div class="container-fluid"> 
-
   <div class="row justify-content-center">
     <div class="col-sm-8 mt-4" style="max-width: 500px">
       
@@ -52,7 +53,7 @@
             {{errorMessage}}
         </div>
         <div class="text-center">
-          <button v-if="!inProgress" type="submit" class="btn btn-primary mt-4">Submit</button>
+          <button v-if="!inProgress" type="submit" class="btn btn-primary mt-4">Register</button>
           <button v-if="inProgress" type="submit" class="btn btn-primary disabled mt-4">processing...</button>
         </div>
 
@@ -67,6 +68,9 @@
    
   </div>
   </div>
+</div>
+
+
 </template>
 
 <script>
@@ -74,9 +78,13 @@ import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
+       breadcrumbItems: [
+        { text: "home", to: "/" },
+        { text: "register", active: true },
+      ],
       email: "davidrf88@gmail.com",
-      password: "pass1234",
-      confirmPassword: "pass1234",
+      password: "pass123",
+      confirmPassword: "pass123",
       errorMessage:null,
       inProgress: false,
       completed : false

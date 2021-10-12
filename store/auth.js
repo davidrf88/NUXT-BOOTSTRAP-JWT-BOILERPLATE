@@ -6,7 +6,21 @@ export const state = () => ({
 
 export const getters = {
   IsAuthenticated: state => {
-    return (state.user != null);
+    try{
+      return (state.user != null);
+    }catch{
+      return false;
+    }
+    
+  },
+  IsAdmin: state => {
+    try{
+      return (state.user.role == "admin")
+    }catch{
+      return false;
+    }
+
+    
   },
   getUser: state => {
     return state.user;

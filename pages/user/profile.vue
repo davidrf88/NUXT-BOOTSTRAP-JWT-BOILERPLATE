@@ -65,6 +65,7 @@
 <script>
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 export default {
+  middleware: "auth",
   data() {
     return {
        breadcrumbItems: [
@@ -72,8 +73,8 @@ export default {
         { text: "profile", active: true },
       ],
       email: "davidrf88@gmail.com",
-      password: "pass1234",
-      confirmPassword: "pass1234",
+      password: "pass123",
+      confirmPassword: "pass123",
       errorMessage:null,
       inProgress: false,
       completed : false,
